@@ -41,11 +41,17 @@ class Gladiador{
     method restarVida(unidades){
         vida = vida - unidades
     }
+    method sumarVida(cantidad){
+        vida = (vida + cantidad).max(100)
+    }
     method fuerza(){
         return fuerza
     }
     method cambiarFuerza(nuevoValor){
         fuerza = nuevoValor
+    }
+    method habilidad(){
+        return habilidad
     }
 
     method atacar(){
@@ -55,9 +61,10 @@ class Gladiador{
 
     }
     
+    
 }
 
-class Mirmillones inherits Gladiador{
+class Mirmillon inherits Gladiador{
     var tipoDeArmadura
 
     override method destreza(){
@@ -109,7 +116,11 @@ class Dimachaerus inherits Gladiador{
 }
 
 class Armadura{
-    var tipoDeArmadura = #{} //cascos y escudos
+    const tipoDeArmadura = #{} //cascos y escudos
+
+    method tipoDeArmadura(){
+        return tipoDeArmadura
+    }
 
 }
 
@@ -123,7 +134,7 @@ object Casco inherits Armadura{
 
 object Escudo inherits Armadura{
         
-    method puntos(){
+    method puntos(unGladiador){
         return 5 + unGladiador.destreza() * 0.1
     }
 
