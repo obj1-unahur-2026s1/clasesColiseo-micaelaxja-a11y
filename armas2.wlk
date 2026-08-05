@@ -3,7 +3,6 @@ class Arma{
     var filo // 0 y 1
     var longitud //cm
 
-    method filo()// abs
 
     method longitud(){
         return longitud
@@ -13,6 +12,7 @@ class Arma{
     }
 
     method valorDeAtaque() // abst
+    method filo()// abs
 
 }
 class ArmaDeFilo inherits Arma{
@@ -28,10 +28,10 @@ class ArmaDeFilo inherits Arma{
 object espada inherits ArmaDeFilo(pesoArma=10,filo=1,longitud=40){
 
 }
-object gladius inherits ArmaDeFilo(pesoArma=10,filo=1,longitud=40){
-    
+object gladius inherits ArmaDeFilo(pesoArma=10,filo=0,longitud=40){
+
 }
-class ArmaContuntende inherits Arma{
+class ArmaContundende inherits Arma{
 
     override method valorDeAtaque(){
         return self.pesoArma()

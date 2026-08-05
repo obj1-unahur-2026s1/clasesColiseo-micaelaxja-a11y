@@ -3,7 +3,7 @@ import armas2.*
 
 class Gladiador{
     var arma
-    var destreza //
+    var destreza 
     var habilidad
     var armadura
     var puntos
@@ -32,12 +32,11 @@ class Gladiador{
 
     method atacar(unEnemigo) // abst
     method defensa(portador)
-    method recibirAtaque() // abs
+    method recibirAtaque(unEnemigo) // abs
     
 
-    method valorDeAtaque(){
-        return arma. valorDeAtaque() + self.fuerza()
-    }
+    method valorDeAtaque() // abs
+
     method pelearCon(unEnemigo){
         self.atacar(unEnemigo)
         unEnemigo.atacar(unEnemigo)
@@ -48,30 +47,32 @@ class Gladiador{
         vida = vida + 20
 
     }
-
-
-
 }
 
-class Mirmillones inherits Gladiador(arma=espada,armadura=escudo){
+class Mirmillon inherits Gladiador(arma=espada,armadura=casco){
     
     override method destreza(){
         return 15
     }
 
     override method atacar(unEnemigo){
-        return self.valorDeAtaque() - unEnemigo.defensa()
+        unEnemigo.recibirAtaque()
 
     }
     
     override method defensa(portador){
-        return armadura.puntos(portador) + self.destreza()
+        return armadura.puntos(self) + self.destreza()
     }
 
     override method crearGrupo(otroGladiador){
         return new GrupoDeLuchadores(nombreDelGrupo= "Mirmillolandia", cantidadPeleas= 0,gladiadores=[self,otroGladiador])
-        
             
+    }
+    override method recibirAtaque(unEnemigo){
+        return unEnemigo.poderDeAtaque() - self.defensa(self)
+    }
+    override method valorDeAtaque(){
+        return arma.valorDeAtaque() + self.fuerza()
     }
 
 
@@ -79,7 +80,7 @@ class Mirmillones inherits Gladiador(arma=espada,armadura=escudo){
 class Dimachaerus inherits Gladiador(fuerza=10,arma=#{}){
 
     override method atacar(unEnemigo){
-        self.valorDeAtaque() - unEnemigo.defensa()
+        unEnemigo.recibirAtaque(self)
         self.destreza() + 1
 
     }
@@ -98,6 +99,10 @@ class Dimachaerus inherits Gladiador(fuerza=10,arma=#{}){
 
     override method crearGrupo(otroGladiador){
         return new GrupoDeLuchadores(nombreDelGrupo= "D-12", cantidadPeleas= 0,gladiadores=[self,otroGladiador])
+        
+    }
+    override method recibirAtaque(unEnemigo){
+        return unEnemigo.valorDeAtaque() - self.defensa(self)
         
     }
 
